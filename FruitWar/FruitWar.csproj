@@ -42,11 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board\Contracts\IBoard.cs" />
+    <Compile Include="Common\Attribute.cs" />
+    <Compile Include="Common\Direction.cs" />
+    <Compile Include="Common\GlobalConstants.cs" />
+    <Compile Include="Common\Position.cs" />
+    <Compile Include="Piece\Contracts\IFruit.cs" />
+    <Compile Include="Piece\Contracts\IPiece.cs" />
+    <Compile Include="Piece\Contracts\BaseWarrior.cs" />
+    <Compile Include="Piece\Contracts\IWarrior.cs" />
+    <Compile Include="Piece\Fruits\Apple.cs" />
+    <Compile Include="Piece\Fruits\Pear.cs" />
+    <Compile Include="Piece\Warriors\Turtle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
