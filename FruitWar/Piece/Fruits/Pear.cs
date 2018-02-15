@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace FruitWar.Piece.Fruits
 {
-    public class Pear : IFruit
+    public class Pear : IFruit, IPiece
     {
         public Pear()
         {
             this.StatAttribute = StatAttribute.Speed;
             this.AttributePoints = GlobalConstants.PearSymbol;
-            this.Symbol = GlobalConstants.PearSymbol;
+            this.VisualSymbol = GlobalConstants.PearSymbol;
         }
 
         public StatAttribute StatAttribute { get; private set; }
 
         public int AttributePoints { get; private set; }
 
-        public char Symbol { get; private set; }
+        public char VisualSymbol { get; private set; }
+
+        public Position Position { get; private set; }
     }
 }

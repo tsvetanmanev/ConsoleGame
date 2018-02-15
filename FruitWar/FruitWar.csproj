@@ -53,6 +53,8 @@
     <Compile Include="Piece\Contracts\IWarrior.cs" />
     <Compile Include="Piece\Fruits\Apple.cs" />
     <Compile Include="Piece\Fruits\Pear.cs" />
+    <Compile Include="Piece\Warriors\Monkey.cs" />
+    <Compile Include="Piece\Warriors\Pigeon.cs" />
     <Compile Include="Piece\Warriors\Turtle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

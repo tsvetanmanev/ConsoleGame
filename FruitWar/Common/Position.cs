@@ -9,7 +9,6 @@
     public struct Position
     {
         public Position(int row, int col)
-            : this()
         {
             this.Row = row;
             this.Col = col;
