@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FruitWar.Piece.Warriors
 {
-    public class Turtle : BaseWarrior, IPiece, IWarrior
+    public class Turtle : BaseWarrior, IWarrior, IPiece
     {
         const int SpeedConst = 1;
         const int PowerConst = 3;

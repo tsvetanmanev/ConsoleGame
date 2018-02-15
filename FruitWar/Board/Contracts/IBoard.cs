@@ -10,9 +10,9 @@
 
     public interface IBoard
     {
-        int TotalRows { get; set; }
+        int TotalRows { get; }
 
-        int TotalCols { get; set; }
+        int TotalCols { get; }
 
         void AddPiece(IPiece piece, Position position);
 
@@ -20,6 +20,6 @@
 
         IPiece GetPieceAtPosition(Position position);
 
-        void MoveWarrior(IWarrior warrior, Position to);
+        void MoveWarrior(IWarrior warrior, Direction direction);
     }
 }

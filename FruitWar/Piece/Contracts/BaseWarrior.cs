@@ -10,6 +10,8 @@ namespace FruitWar.Piece.Contracts
 {
     public abstract class BaseWarrior : IPiece, IWarrior
     {
+        private const int CellsPerMove = 1;
+
         public int Power { get; protected set; }
 
         public int Speed { get; protected set; }
@@ -22,29 +24,30 @@ namespace FruitWar.Piece.Contracts
         {
             int updatedRowPosition = this.Position.Row;
             int updatedColPosition = this.Position.Col;
-            int cellsToMove = this.Speed;
 
             switch (direction)
             {
                 case Direction.Up:
-                    updatedRowPosition = updatedRowPosition - cellsToMove;
+                    updatedRowPosition = updatedRowPosition - CellsPerMove;
                     break;
                 case Direction.Right:
-                    updatedColPosition = updatedColPosition + cellsToMove;
+                    updatedColPosition = updatedColPosition + CellsPerMove;
                     break;
                 case Direction.Down:
-                    updatedRowPosition = updatedRowPosition + cellsToMove;
+                    updatedRowPosition = updatedRowPosition + CellsPerMove;
                     break;
                 case Direction.Left:
-                    updatedColPosition = updatedColPosition - cellsToMove;
+                    updatedColPosition = updatedColPosition - CellsPerMove;
                     break;
                 default:
                     break;
             }
 
-            this.Position = new Position(updatedRowPosition, updatedColPosition);
+            Position updatedPosition = new Position(updatedRowPosition, updatedColPosition);
 
-            //TODO: Make sure game checks if new Position is possible.
+            Position.CheckIfValid(updatedPosition);
+
+            this.Position = updatedPosition;
         }
 
         public void Eat(IFruit fruit)
