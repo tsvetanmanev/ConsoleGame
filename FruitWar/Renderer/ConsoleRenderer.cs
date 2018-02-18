@@ -2,7 +2,9 @@
 {
     using FruitWar.Board.Contracts;
     using FruitWar.Common;
+    using FruitWar.Piece.Contracts;
     using FruitWar.Renderer.Contracts;
+    using System.Collections.Generic;
 
     public class ConsoleRenderer : IRenderer
     {
@@ -31,6 +33,17 @@
 
                 System.Console.WriteLine();
             }
+
+            System.Console.WriteLine();
+        }
+
+        public void RenderWarriorsInfo(IList<IWarrior> warriors)
+        {
+            foreach (var warrior in warriors)
+            {
+                System.Console.WriteLine($"Player{warrior.VisualSymbol}: {warrior.Power} Power; {warrior.Speed} Speed");
+            }
+            System.Console.WriteLine();
         }
     }
 }

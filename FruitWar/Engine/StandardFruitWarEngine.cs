@@ -179,7 +179,14 @@
             while (true)
             {
                 this.renderer.RenderBoard(this.board);
-                
+
+                this.renderer.RenderWarriorsInfo(warriors);
+
+                foreach (var warrior in warriors)
+                {
+                    var direction = this.input.GetNextMove(warrior);
+                }
+
                 Console.ReadLine();
             }
         }

@@ -8,6 +8,6 @@
     {
         IList<IWarrior> GetWarriors(int numberOfPlayers);
 
-        Position GetNextMove(IWarrior warrior);
+        Direction GetNextMove(IWarrior warrior);
     }
 }

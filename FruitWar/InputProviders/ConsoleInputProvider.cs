@@ -11,9 +11,13 @@
     {
         private const string ChooseWarriorText = "Player{0}, please choose a warrior.\nInsert 1 for turtle / 2 for monkey / 3 for pigeon";
 
-        public Position GetNextMove(IWarrior warrior)
+        public Direction GetNextMove(IWarrior warrior)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine($"Player{warrior.VisualSymbol}, make a move please!");
+
+            Console.ReadKey();
+
+            return Direction.Down; 
         }
 
         public IList<IWarrior> GetWarriors(int numberOfPlayers)
