@@ -12,8 +12,9 @@
         const int SpeedConst = 2;
         const int PowerConst = 2;
 
-        public Monkey()
+        public Monkey(char symbol)
         {
+            this.VisualSymbol = symbol;
             this.Speed = SpeedConst;
             this.Power = PowerConst;
         }

@@ -13,8 +13,9 @@ namespace FruitWar.Piece.Warriors
         const int SpeedConst = 1;
         const int PowerConst = 3;
 
-        public Turtle()
+        public Turtle(char symbol)
         {
+            this.VisualSymbol = symbol;
             this.Speed = SpeedConst;
             this.Power = PowerConst;
         }

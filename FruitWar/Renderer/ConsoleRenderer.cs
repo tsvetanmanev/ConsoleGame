@@ -20,7 +20,7 @@
 
                     if (piece == null)
                     {
-                        System.Console.Write(' ');
+                        System.Console.Write('-');
                     }
                     else
                     {

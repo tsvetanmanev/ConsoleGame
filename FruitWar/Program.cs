@@ -1,6 +1,7 @@
 ﻿namespace FruitWar
 {
     using FruitWar.Engine;
+    using FruitWar.InputProviders;
     using FruitWar.Renderer;
     using System;
     using System.Collections.Generic;
@@ -14,9 +15,13 @@
         {
             var renderer = new ConsoleRenderer();
 
-            var fruitWarEngine = new StandardFruitWarEngine(renderer);
+            var inputProvider = new ConsoleInputProvider();
+
+            var fruitWarEngine = new StandardFruitWarEngine(renderer, inputProvider);
 
             fruitWarEngine.Initialize();
+
+            fruitWarEngine.Start();
 
             Console.ReadLine();
         }

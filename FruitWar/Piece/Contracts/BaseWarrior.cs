@@ -58,7 +58,7 @@ namespace FruitWar.Piece.Contracts
             }
             else if (fruit.StatAttribute == StatAttribute.Power)
             {
-                this.Speed += fruit.AttributePoints;
+                this.Power += fruit.AttributePoints;
             }
         }
     }

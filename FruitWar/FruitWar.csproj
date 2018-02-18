@@ -50,6 +50,8 @@
     <Compile Include="Common\Position.cs" />
     <Compile Include="Engine\Contracts\IFruitWarEngine.cs" />
     <Compile Include="Engine\StandardFruitWarEngine.cs" />
+    <Compile Include="InputProviders\ConsoleInputProvider.cs" />
+    <Compile Include="InputProviders\Contracts\IInputProvider.cs" />
     <Compile Include="Piece\Contracts\IFruit.cs" />
     <Compile Include="Piece\Contracts\IPiece.cs" />
     <Compile Include="Piece\Contracts\BaseWarrior.cs" />

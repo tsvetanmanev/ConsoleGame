@@ -12,8 +12,9 @@ namespace FruitWar.Piece.Warriors
         const int SpeedConst = 3;
         const int PowerConst = 1;
 
-        public Pigeon()
+        public Pigeon(char symbol)
         {
+            this.VisualSymbol = symbol;
             this.Speed = SpeedConst;
             this.Power = PowerConst;
         }
