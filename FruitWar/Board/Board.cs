@@ -11,7 +11,7 @@ namespace FruitWar.Board
 {
     public class Board : IBoard
     {
-        private readonly IPiece[,] board;
+        private IPiece[,] board;
 
         public Board(int rows = GlobalConstants.StandardGameTotalBoardRows, int cols = GlobalConstants.StandardGameTotalBoardCols)
         {
@@ -30,8 +30,8 @@ namespace FruitWar.Board
             // TODO: Check if ObjectIsNull
 
             Position.CheckIfValid(position);
-
             this.board[position.Row, position.Col] = piece;
+            piece.Position = position;
         }
 
         public IPiece GetPieceAtPosition(Position position)
@@ -41,16 +41,16 @@ namespace FruitWar.Board
             return this.board[position.Row, position.Col];
         }
 
-        public void MoveWarrior(IWarrior warrior, Direction direction)
-        {
-            warrior.Move(direction);
-        }
-
         public void RemovePiece(Position position)
         {
             Position.CheckIfValid(position);
 
             this.board[position.Row, position.Col] = null;
+        }
+
+        public void Clear()
+        {
+            this.board = new IPiece[TotalRows, TotalCols];
         }
     }
 }

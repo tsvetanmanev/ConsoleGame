@@ -2,11 +2,6 @@
 {
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public interface IBoard
     {
@@ -20,6 +15,6 @@
 
         IPiece GetPieceAtPosition(Position position);
 
-        void MoveWarrior(IWarrior warrior, Direction direction);
+        void Clear();
     }
 }

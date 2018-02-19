@@ -4,7 +4,9 @@
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;
     using FruitWar.Renderer.Contracts;
+    using System;
     using System.Collections.Generic;
+    using System.Threading;
 
     public class ConsoleRenderer : IRenderer
     {
@@ -22,28 +24,50 @@
 
                     if (piece == null)
                     {
-                        System.Console.Write('-');
+                        Console.Write('-');
                     }
                     else
                     {
-                        System.Console.Write(piece.VisualSymbol);
+                        Console.Write(piece.VisualSymbol);
                     }
 
                 }
 
-                System.Console.WriteLine();
+                Console.WriteLine();
             }
 
-            System.Console.WriteLine();
+            Console.WriteLine();
         }
 
         public void RenderWarriorsInfo(IList<IWarrior> warriors)
         {
             foreach (var warrior in warriors)
             {
-                System.Console.WriteLine($"Player{warrior.VisualSymbol}: {warrior.Power} Power; {warrior.Speed} Speed");
+                Console.WriteLine($"Player{warrior.VisualSymbol}: {warrior.Power} Power; {warrior.Speed} Speed");
             }
-            System.Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public void RenderErrorMessage(string errorMessage)
+        {
+            Console.WriteLine(errorMessage);
+            Thread.Sleep(2000);
+        }
+
+        public void RenderWinner(IWarrior warrior)
+        {
+            Console.WriteLine($"Player {warrior.VisualSymbol} wins the game.");
+            Console.WriteLine($"Player{warrior.VisualSymbol}: {warrior.Power} Power; {warrior.Speed} Speed");
+        }
+
+        public void RenderDraw()
+        {
+            Console.WriteLine("Draw game.");
+        }
+
+        public void Clear()
+        {
+            Console.Clear();
         }
     }
 }

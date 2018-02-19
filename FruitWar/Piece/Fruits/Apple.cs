@@ -19,6 +19,6 @@ namespace FruitWar.Piece.Fruits
 
         public char VisualSymbol { get; private set; }
 
-        public Position Position { get; private set; }
+        public Position Position { get; set; }
     }
 }

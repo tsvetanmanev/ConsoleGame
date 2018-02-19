@@ -18,7 +18,7 @@ namespace FruitWar.Piece.Contracts
 
         public char VisualSymbol { get; set; }
 
-        public Position Position { get; protected set; }
+        public Position Position { get; set; }
 
         public void Move(Direction direction)
         {

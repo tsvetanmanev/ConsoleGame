@@ -5,7 +5,5 @@
         void Initialize();
 
         void Start();
-
-        void CheckIfWon();
     }
 }

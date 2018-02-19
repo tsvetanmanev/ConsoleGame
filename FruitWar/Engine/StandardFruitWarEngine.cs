@@ -14,13 +14,18 @@
 
     public class StandardFruitWarEngine : IFruitWarEngine
     {
+        private const int CountOfFruit = 7;
+
         private readonly IRenderer renderer;
         private readonly IBoard board;
         private readonly IInputProvider input;
 
         private IList<IWarrior> warriors;
-
-        private const int CountOfFruit = 7;
+        private int currentWarriorIndex;
+        private int currentTurnsLeft;
+        private bool gameIsFinished;
+        private bool gameIsDraw;
+        private IWarrior winner;
 
         public StandardFruitWarEngine(IRenderer renderer, IInputProvider inputProvider)
         {
@@ -31,13 +36,156 @@
 
         public void Initialize()
         {
-            // Let players choose their warrior
-            //warriors = this.input.GetWarriors(2);
-            warriors = new List<IWarrior> { { new Monkey('1') }, { new Pigeon('2') } };
+            warriors = this.input.GetWarriors(2);
 
             this.AddWarriorsToBoard();
 
             this.AddFruitsToBoard();
+
+            currentWarriorIndex = 0;
+            currentTurnsLeft = 0;
+            gameIsFinished = false;
+            gameIsDraw = false;
+            winner = null;
+        }
+
+        public void Start()
+        {
+            while (true)
+            {
+                var warrior = GetNextWarrior();
+
+                this.currentTurnsLeft = warrior.Speed;
+
+                while (currentTurnsLeft > 0)
+                {
+                    try
+                    {
+                        this.renderer.RenderBoard(this.board);
+                        this.renderer.RenderWarriorsInfo(warriors);
+
+                        var direction = this.input.GetNextMove(warrior);
+
+                        var oldPosition = warrior.Position;
+                        warrior.Move(direction);
+                        var newPosition = warrior.Position;
+
+                        var pieceOnNewPosition = this.board.GetPieceAtPosition(newPosition);
+                        if (pieceOnNewPosition != null)
+                        {
+                            warrior = this.GetWarriorAfterCollision(warrior, pieceOnNewPosition);
+                        }
+
+                        this.MoveWarrior(warrior, oldPosition, newPosition);
+
+                        this.renderer.Clear();
+
+                        currentTurnsLeft--;
+
+                        if (gameIsFinished)
+                        {
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        this.renderer.RenderErrorMessage(ex.Message);
+                        this.renderer.Clear();
+                    }
+                }
+
+                if (gameIsFinished)
+                {
+                    this.FinishGame();
+                    break;
+                }
+            }
+        }
+
+        private void MoveWarrior(IWarrior warrior, Position oldPosition, Position newPosition)
+        {
+            this.board.RemovePiece(oldPosition);
+            this.board.AddPiece(warrior, newPosition);
+        }
+
+        private void FinishGame()
+        {
+            if (gameIsDraw)
+            {
+                this.renderer.RenderDraw();
+            }
+            else
+            {
+                this.renderer.RenderBoard(this.board);
+                this.renderer.RenderWinner(winner);
+            }
+
+            var rematchVote = this.input.GetRematchVote();
+
+            if (rematchVote == true)
+            {
+                this.Restart();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
+
+        }
+
+        private void Restart()
+        {
+            this.board.Clear();
+            this.renderer.Clear();
+            this.Initialize();
+            this.Start();
+        }
+
+        private IWarrior GetWarriorAfterCollision(IWarrior warrior, IPiece piece)
+        {
+            if (piece is IFruit)
+            {
+                warrior.Eat((IFruit)piece);
+                return warrior;
+            }
+            else if (piece is IWarrior)
+            {
+                IWarrior defendingWarrrior = (IWarrior)piece;
+
+                this.winner = warrior;
+
+                if (warrior.Power > defendingWarrrior.Power)
+                {
+                    this.winner = warrior;
+                    this.gameIsFinished = true;
+                }
+                else if (warrior.Power < defendingWarrrior.Power)
+                {
+                    this.winner = defendingWarrrior;
+                    this.gameIsFinished = true;
+                }
+                else
+                {
+                    this.gameIsDraw = true;
+                    this.gameIsFinished = true;
+                }
+            }
+
+            return this.winner;
+        }
+
+        private IWarrior GetNextWarrior()
+        {
+            if (this.currentWarriorIndex < 0 || this.currentWarriorIndex >= this.warriors.Count)
+            {
+                this.currentWarriorIndex = 0;
+            }
+
+            int currentIndex = this.currentWarriorIndex;
+
+            this.currentWarriorIndex++;
+
+            return this.warriors[currentIndex];
         }
 
         private void AddFruitsToBoard()
@@ -174,27 +322,6 @@
             System.Console.WriteLine();
         }
 
-        public void Start()
-        {
-            while (true)
-            {
-                this.renderer.RenderBoard(this.board);
-
-                this.renderer.RenderWarriorsInfo(warriors);
-
-                foreach (var warrior in warriors)
-                {
-                    var direction = this.input.GetNextMove(warrior);
-                }
-
-                Console.ReadLine();
-            }
-        }
-
-        public void CheckIfWon()
-        {
-            throw new System.NotImplementedException();
-        }
 
     }
 }

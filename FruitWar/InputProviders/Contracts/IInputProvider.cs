@@ -9,5 +9,7 @@
         IList<IWarrior> GetWarriors(int numberOfPlayers);
 
         Direction GetNextMove(IWarrior warrior);
+
+        bool GetRematchVote();
     }
 }

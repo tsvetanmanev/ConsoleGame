@@ -9,7 +9,7 @@ namespace FruitWar.Piece.Contracts
 {
     public interface IPiece
     {
-        Position Position { get; }
+        Position Position { get; set; }
 
         char VisualSymbol { get; }
 

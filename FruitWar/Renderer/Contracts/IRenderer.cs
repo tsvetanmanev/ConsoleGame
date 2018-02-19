@@ -9,5 +9,13 @@
         void RenderBoard(IBoard board);
 
         void RenderWarriorsInfo(IList<IWarrior> warriors);
+
+        void RenderErrorMessage(string errorMessage);
+
+        void RenderWinner(IWarrior warrior);
+
+        void RenderDraw();
+
+        void Clear();
     }
 }

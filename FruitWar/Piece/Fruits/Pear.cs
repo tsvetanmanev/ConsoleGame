@@ -13,7 +13,7 @@ namespace FruitWar.Piece.Fruits
         public Pear()
         {
             this.StatAttribute = StatAttribute.Speed;
-            this.AttributePoints = GlobalConstants.PearSymbol;
+            this.AttributePoints = GlobalConstants.PearAttributePoints;
             this.VisualSymbol = GlobalConstants.PearSymbol;
         }
 
@@ -23,6 +23,6 @@ namespace FruitWar.Piece.Fruits
 
         public char VisualSymbol { get; private set; }
 
-        public Position Position { get; private set; }
+        public Position Position { get; set; }
     }
 }
