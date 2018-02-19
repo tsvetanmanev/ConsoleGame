@@ -1,8 +1,8 @@
 ﻿namespace FruitWar.Renderer.Contracts
 {
+    using System.Collections.Generic;
     using FruitWar.Board.Contracts;
     using FruitWar.Piece.Contracts;
-    using System.Collections.Generic;
 
     public interface IRenderer
     {

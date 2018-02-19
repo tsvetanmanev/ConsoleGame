@@ -7,6 +7,5 @@
         Position Position { get; set; }
 
         char VisualSymbol { get; }
-
     }
 }

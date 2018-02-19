@@ -4,8 +4,8 @@
 
     public class Pigeon : BaseWarrior, IWarrior, IPiece
     {
-        const int SpeedConst = 3;
-        const int PowerConst = 1;
+        private const int SpeedConst = 3;
+        private const int PowerConst = 1;
 
         public Pigeon(char symbol)
         {

@@ -1,8 +1,8 @@
 ﻿namespace FruitWar.InputProviders.Contracts
 {
+    using System.Collections.Generic;
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;
-    using System.Collections.Generic;
 
     public interface IInputProvider
     {

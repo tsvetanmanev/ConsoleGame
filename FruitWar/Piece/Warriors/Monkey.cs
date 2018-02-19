@@ -2,10 +2,10 @@
 {
     using FruitWar.Piece.Contracts;
 
-    public class Monkey: BaseWarrior, IWarrior, IPiece
+    public class Monkey : BaseWarrior, IWarrior, IPiece
     {
-        const int SpeedConst = 2;
-        const int PowerConst = 2;
+        private const int SpeedConst = 2;
+        private const int PowerConst = 2;
 
         public Monkey(char symbol)
         {

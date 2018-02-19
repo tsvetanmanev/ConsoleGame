@@ -1,6 +1,7 @@
-﻿using FruitWar.Common;
-namespace FruitWar.Piece.Contracts
+﻿namespace FruitWar.Piece.Contracts
 {
+    using FruitWar.Common;
+
     public abstract class BaseWarrior : IPiece, IWarrior
     {
         private const int CellsPerMove = 1;

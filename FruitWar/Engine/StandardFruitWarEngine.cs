@@ -1,5 +1,7 @@
 ﻿namespace FruitWar.Engine
 {
+    using System;
+    using System.Collections.Generic;
     using FruitWar.Board;
     using FruitWar.Board.Contracts;
     using FruitWar.Common;
@@ -8,8 +10,6 @@
     using FruitWar.Piece.Contracts;
     using FruitWar.Piece.Fruits;
     using FruitWar.Renderer.Contracts;
-    using System;
-    using System.Collections.Generic;
 
     public class StandardFruitWarEngine : IFruitWarEngine
     {
@@ -35,33 +35,33 @@
 
         public void Initialize()
         {
-            warriors = this.input.GetWarriors(2);
+            this.warriors = this.input.GetWarriors(2);
 
             this.AddWarriorsToBoard();
 
             this.AddFruitsToBoard();
 
-            currentWarriorIndex = 0;
-            currentTurnsLeft = 0;
-            gameIsFinished = false;
-            gameIsDraw = false;
-            winner = null;
+            this.currentWarriorIndex = 0;
+            this.currentTurnsLeft = 0;
+            this.gameIsFinished = false;
+            this.gameIsDraw = false;
+            this.winner = null;
         }
 
         public void Start()
         {
             while (true)
             {
-                var warrior = GetNextWarrior();
+                var warrior = this.GetNextWarrior();
 
                 this.currentTurnsLeft = warrior.Speed;
 
-                while (currentTurnsLeft > 0)
+                while (this.currentTurnsLeft > 0)
                 {
                     try
                     {
                         this.renderer.RenderBoard(this.board);
-                        this.renderer.RenderWarriorsInfo(warriors);
+                        this.renderer.RenderWarriorsInfo(this.warriors);
 
                         var direction = this.input.GetNextMove(warrior);
 
@@ -79,9 +79,9 @@
 
                         this.renderer.Clear();
 
-                        currentTurnsLeft--;
+                        this.currentTurnsLeft--;
 
-                        if (gameIsFinished)
+                        if (this.gameIsFinished)
                         {
                             break;
                         }
@@ -93,7 +93,7 @@
                     }
                 }
 
-                if (gameIsFinished)
+                if (this.gameIsFinished)
                 {
                     this.FinishGame();
                     break;
@@ -109,14 +109,14 @@
 
         private void FinishGame()
         {
-            if (gameIsDraw)
+            if (this.gameIsDraw)
             {
                 this.renderer.RenderDraw();
             }
             else
             {
                 this.renderer.RenderBoard(this.board);
-                this.renderer.RenderWinner(winner);
+                this.renderer.RenderWinner(this.winner);
             }
 
             var rematchVote = this.input.GetRematchVote();
@@ -129,7 +129,6 @@
             {
                 Environment.Exit(0);
             }
-
         }
 
         private void Restart()
@@ -189,7 +188,7 @@
 
         private void AddFruitsToBoard()
         {
-            var fruitPositions = GetPiecePositions(CountOfFruit, 1);
+            var fruitPositions = this.GetPiecePositions(CountOfFruit, 1);
 
             Random random = new Random();
 
@@ -214,14 +213,14 @@
 
         private void AddWarriorsToBoard()
         {
-            var warriorPositions = GetPiecePositions(warriors.Count, 2);
+            var warriorPositions = this.GetPiecePositions(this.warriors.Count, 2);
 
-            for (int i = 0; i < warriors.Count; i++)
+            for (int i = 0; i < this.warriors.Count; i++)
             {
-                var warrior = warriors[i];
+                var warrior = this.warriors[i];
                 var position = warriorPositions[i];
 
-                this.board.AddPiece(warriors[i], warriorPositions[i]);
+                this.board.AddPiece(this.warriors[i], warriorPositions[i]);
             }
         }
 
@@ -256,11 +255,10 @@
 
                 positions.Add(positionCheck);
 
-                MarkDisabledCellsInGrid(rowIndex, colIndex, disabledCellsAround, gridMask);
+                this.MarkDisabledCellsInGrid(rowIndex, colIndex, disabledCellsAround, gridMask);
             }
 
             return positions;
-
         }
 
         private void MarkDisabledCellsInGrid(int firstRowIndex, int firstColIndex, int cellsAround, bool[,] boardMask)
@@ -271,7 +269,7 @@
                 int currentCol = firstColIndex - rowsToMark;
                 int currentRow = (firstRowIndex - cellsAround) + rowsToMark;
 
-                MarkDisabledCellsInRow(cellsToMark, currentCol, currentRow, boardMask);
+                this.MarkDisabledCellsInRow(cellsToMark, currentCol, currentRow, boardMask);
             }
 
             for (int rowsToMark = (cellsAround - 1), currentRow = (firstRowIndex + 1); rowsToMark >= 0; rowsToMark--)
@@ -313,8 +311,10 @@
                         Console.Write('x');
                     }
                 }
+
                 Console.WriteLine();
             }
+
             Console.WriteLine();
         }
     }

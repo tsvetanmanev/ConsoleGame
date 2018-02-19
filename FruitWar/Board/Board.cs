@@ -22,7 +22,7 @@
 
         public void AddPiece(IPiece piece, Position position)
         {
-            // TODO: Check if ObjectIsNull
+            //// TODO: Check if ObjectIsNull
 
             Position.CheckIfValid(position);
             this.board[position.Row, position.Col] = piece;
@@ -45,7 +45,7 @@
 
         public void Clear()
         {
-            this.board = new IPiece[TotalRows, TotalCols];
+            this.board = new IPiece[this.TotalRows, this.TotalCols];
         }
     }
 }

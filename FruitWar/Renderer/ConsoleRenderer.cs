@@ -1,19 +1,18 @@
 ﻿namespace FruitWar.Renderer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
     using FruitWar.Board.Contracts;
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;
     using FruitWar.Renderer.Contracts;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
 
     public class ConsoleRenderer : IRenderer
     {
         public void RenderBoard(IBoard board)
         {
-            // TODO: Optimize board with StreamWriter
-
+            //// TODO: Optimize board with StreamWriter
             for (int rows = 0; rows < board.TotalRows; rows++)
             {
                 for (int cols = 0; cols < board.TotalCols; cols++)
@@ -30,7 +29,6 @@
                     {
                         Console.Write(piece.VisualSymbol);
                     }
-
                 }
 
                 Console.WriteLine();
@@ -45,6 +43,7 @@
             {
                 Console.WriteLine($"Player{warrior.VisualSymbol}: {warrior.Power} Power; {warrior.Speed} Speed");
             }
+
             Console.WriteLine();
         }
 

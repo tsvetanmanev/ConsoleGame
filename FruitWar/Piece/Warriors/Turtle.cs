@@ -4,8 +4,8 @@
 
     public class Turtle : BaseWarrior, IWarrior, IPiece
     {
-        const int SpeedConst = 1;
-        const int PowerConst = 3;
+        private const int SpeedConst = 1;
+        private const int PowerConst = 3;
 
         public Turtle(char symbol)
         {

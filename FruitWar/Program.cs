@@ -1,9 +1,9 @@
 ﻿namespace FruitWar
 {
+    using System;
     using FruitWar.Engine;
     using FruitWar.InputProviders;
     using FruitWar.Renderer;
-    using System;
 
     public class Program
     {
