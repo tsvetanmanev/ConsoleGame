@@ -1,14 +1,9 @@
-﻿using FruitWar.Board.Contracts;
-using FruitWar.Common;
-using FruitWar.Piece.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FruitWar.Board
+﻿namespace FruitWar.Board
 {
+    using FruitWar.Board.Contracts;
+    using FruitWar.Common;
+    using FruitWar.Piece.Contracts;
+
     public class Board : IBoard
     {
         private IPiece[,] board;

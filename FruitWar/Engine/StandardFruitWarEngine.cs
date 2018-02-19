@@ -1,16 +1,15 @@
 ﻿namespace FruitWar.Engine
 {
-    using FruitWar.Board.Contracts;
     using FruitWar.Board;
-    using FruitWar.Engine.Contracts;
-    using FruitWar.Renderer.Contracts;
-    using FruitWar.Piece.Warriors;
+    using FruitWar.Board.Contracts;
     using FruitWar.Common;
+    using FruitWar.Engine.Contracts;
     using FruitWar.InputProviders.Contracts;
     using FruitWar.Piece.Contracts;
-    using System.Collections.Generic;
-    using System;
     using FruitWar.Piece.Fruits;
+    using FruitWar.Renderer.Contracts;
+    using System;
+    using System.Collections.Generic;
 
     public class StandardFruitWarEngine : IFruitWarEngine
     {
@@ -268,7 +267,7 @@
         {
             for (int rowsToMark = 0; rowsToMark <= cellsAround; rowsToMark++)
             {
-                int cellsToMark = (rowsToMark * cellsAround) + 1;
+                int cellsToMark = (rowsToMark * 2) + 1;
                 int currentCol = firstColIndex - rowsToMark;
                 int currentRow = (firstRowIndex - cellsAround) + rowsToMark;
 
@@ -284,9 +283,6 @@
 
                 currentRow++;
             }
-
-            // For debugging purposes
-            // this.RenderBoardMask(boardMask);
         }
 
         private void MarkDisabledCellsInRow(int cellsToMark, int currentCol, int currentRow, bool[,] boardMask)
@@ -310,18 +306,16 @@
                 {
                     if (boardMask[rows, cols] == false)
                     {
-                        System.Console.Write('-');
+                        Console.Write('-');
                     }
                     else
                     {
-                        System.Console.Write('x');
+                        Console.Write('x');
                     }
                 }
-                System.Console.WriteLine();
+                Console.WriteLine();
             }
-            System.Console.WriteLine();
+            Console.WriteLine();
         }
-
-
     }
 }

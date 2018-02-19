@@ -1,10 +1,9 @@
-﻿using System;
-using FruitWar.Piece.Contracts;
-using FruitWar.Common;
-
-namespace FruitWar.Piece.Fruits
+﻿namespace FruitWar.Piece.Fruits
 {
-    public class Apple : IFruit
+    using FruitWar.Common;
+    using FruitWar.Piece.Contracts;
+
+    public class Apple : IFruit, IPiece
     {
         public Apple()
         {
