@@ -1,6 +1,7 @@
 ﻿namespace FruitWar.Piece.Contracts
 {
     using FruitWar.Common;
+    using System;
 
     public abstract class BaseWarrior : IPiece, IWarrior
     {
@@ -46,6 +47,11 @@
 
         public void Eat(IFruit fruit)
         {
+            if (fruit == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (fruit.StatAttribute == StatAttribute.Speed)
             {
                 this.Speed += fruit.AttributePoints;
