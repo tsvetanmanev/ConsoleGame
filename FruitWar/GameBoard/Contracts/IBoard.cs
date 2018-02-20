@@ -1,4 +1,4 @@
-﻿namespace FruitWar.Board.Contracts
+﻿namespace FruitWar.GameBoard.Contracts
 {
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;

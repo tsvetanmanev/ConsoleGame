@@ -2,6 +2,7 @@
 {
     using System;
     using FruitWar.Engine;
+    using FruitWar.GameBoard;
     using FruitWar.InputProviders;
     using FruitWar.Renderer;
 
@@ -11,7 +12,7 @@
         {
             var renderer = new ConsoleRenderer();
             var inputProvider = new ConsoleInputProvider();
-            var board = new FruitWar.Board.Board();
+            var board = new Board();
 
             var fruitWarEngine = new StandardFruitWarEngine(renderer, inputProvider, board);
 

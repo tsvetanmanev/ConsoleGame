@@ -1,8 +1,9 @@
-﻿namespace FruitWar.Board
+﻿namespace FruitWar.GameBoard
 {
-    using FruitWar.Board.Contracts;
+    using FruitWar.GameBoard.Contracts;
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;
+    using System;
 
     public class Board : IBoard
     {
@@ -22,7 +23,10 @@
 
         public void AddPiece(IPiece piece, Position position)
         {
-            //// TODO: Check if ObjectIsNull
+            if (piece == null)
+            {
+                throw new ArgumentNullException("piece");
+            }
 
             Position.CheckIfValid(position);
             this.board[position.Row, position.Col] = piece;

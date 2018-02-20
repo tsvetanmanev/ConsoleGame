@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using FruitWar.Board;
-    using FruitWar.Board.Contracts;
+    using FruitWar.GameBoard;
+    using FruitWar.GameBoard.Contracts;
     using FruitWar.Common;
     using FruitWar.Engine.Contracts;
     using FruitWar.InputProviders.Contracts;

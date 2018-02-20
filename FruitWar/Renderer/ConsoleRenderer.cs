@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using FruitWar.Board.Contracts;
+    using FruitWar.GameBoard.Contracts;
     using FruitWar.Common;
     using FruitWar.Piece.Contracts;
     using FruitWar.Renderer.Contracts;

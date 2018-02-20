@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board\Board.cs" />
-    <Compile Include="Board\Contracts\IBoard.cs" />
+    <Compile Include="GameBoard\Board.cs" />
+    <Compile Include="GameBoard\Contracts\IBoard.cs" />
     <Compile Include="Common\Attribute.cs" />
     <Compile Include="Common\Direction.cs" />
     <Compile Include="Common\GlobalConstants.cs" />
