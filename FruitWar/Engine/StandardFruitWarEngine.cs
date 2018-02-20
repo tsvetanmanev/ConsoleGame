@@ -20,17 +20,17 @@
         private readonly IInputProvider input;
 
         private IList<IWarrior> warriors;
+        private IWarrior winner;
         private int currentWarriorIndex;
         private int currentTurnsLeft;
         private bool gameIsFinished;
         private bool gameIsDraw;
-        private IWarrior winner;
 
-        public StandardFruitWarEngine(IRenderer renderer, IInputProvider inputProvider)
+        public StandardFruitWarEngine(IRenderer renderer, IInputProvider inputProvider, IBoard board)
         {
             this.renderer = renderer;
             this.input = inputProvider;
-            this.board = new Board();
+            this.board = board;
         }
 
         public void Initialize()
@@ -172,8 +172,14 @@
             return this.winner;
         }
 
+        /// <summary>
+        /// Gets the next warrior to play in the game.
+        /// Moves the index forward for next iteration.
+        /// </summary>
         private IWarrior GetNextWarrior()
         {
+            //// Check If currentWarriorIndex is negative or bigger than the warrior count.
+            //// If so restart the index to zero.
             if (this.currentWarriorIndex < 0 || this.currentWarriorIndex >= this.warriors.Count)
             {
                 this.currentWarriorIndex = 0;
@@ -188,16 +194,18 @@
 
         private void AddFruitsToBoard()
         {
-            var fruitPositions = this.GetPiecePositions(CountOfFruit, 1);
+            var fruitPositions = this.GetPiecePositions(CountOfFruit, GlobalConstants.DisabledCellsAroundFruit);
 
             Random random = new Random();
 
+            
             for (int i = 0; i < CountOfFruit; i++)
             {
                 IFruit fruit;
 
+                //// Pick the type of next fruit to add on the board.
+                //// There is 50% chance of Apple and 50% chance of Pear.
                 int randomNumber = random.Next(0, 200);
-
                 if (randomNumber >= 100)
                 {
                     fruit = new Apple();
@@ -213,7 +221,7 @@
 
         private void AddWarriorsToBoard()
         {
-            var warriorPositions = this.GetPiecePositions(this.warriors.Count, 2);
+            var warriorPositions = this.GetPiecePositions(this.warriors.Count, GlobalConstants.DisabledCellsAroundWarrior);
 
             for (int i = 0; i < this.warriors.Count; i++)
             {
@@ -224,10 +232,18 @@
             }
         }
 
-        private IList<Position> GetPiecePositions(int piecesCount, int disabledCellsAround)
+        /// <summary>
+        /// Gets a list of randomly distributed positinions that can be used for the given game piece.
+        /// </summary>
+        /// <param name="piecesCount">A number of pieces. Can only be positive number.</param>
+        /// <param name="amountOfDisabledCells">Number of cells around the piece that should unavailable for population.</param>
+        /// <returns></returns>
+        private IList<Position> GetPiecePositions(int piecesCount, int amountOfDisabledCells)
         {
-            List<Position> positions = new List<Position>();
+            IList<Position> positions = new List<Position>();
 
+            //// Creates a bool mask of the gameboard. 
+            //// We use this to mark the spaces around the created piece that cannot be used for new pieces
             bool[,] gridMask = new bool[this.board.TotalRows, this.board.TotalCols];
 
             Random random = new Random();
@@ -237,45 +253,56 @@
                 int rowIndex;
                 int colIndex;
 
-                Position positionCheck = new Position();
+                Position position = new Position();
 
+                //// Create new random Position and check if this position can be placed on the board
                 while (true)
                 {
                     rowIndex = random.Next(0, (this.board.TotalRows - 1));
                     colIndex = random.Next(0, (this.board.TotalCols - 1));
 
-                    positionCheck.Row = rowIndex;
-                    positionCheck.Col = colIndex;
+                    position.Row = rowIndex;
+                    position.Col = colIndex;
 
-                    if (gridMask[rowIndex, colIndex] == false && this.board.GetPieceAtPosition(positionCheck) == null)
+                    //// If the new position is available on the mask and on the board - stop the loop and add it to the resuls list
+                    //// Otherwise continue to generate new positions until it finds an available one
+                    if (gridMask[rowIndex, colIndex] == false && this.board.GetPieceAtPosition(position) == null)
                     {
                         break;
                     }
                 }
 
-                positions.Add(positionCheck);
+                positions.Add(position);
 
-                this.MarkDisabledCellsInGrid(rowIndex, colIndex, disabledCellsAround, gridMask);
+                this.MarkDisabledCellsInGrid(position, amountOfDisabledCells, gridMask);
             }
 
             return positions;
         }
 
-        private void MarkDisabledCellsInGrid(int firstRowIndex, int firstColIndex, int cellsAround, bool[,] boardMask)
+        /// <summary>
+        /// Marks cells around the position as unavailable.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="cellsAround">A radius of cells around the position that should be made unavailable.</param>
+        /// <param name="boardMask"></param>
+        private void MarkDisabledCellsInGrid(Position position, int cellsAround, bool[,] boardMask)
         {
+            //// First loop marks the upper part and the middle row of the rhombus of unavailable cells
             for (int rowsToMark = 0; rowsToMark <= cellsAround; rowsToMark++)
             {
                 int cellsToMark = (rowsToMark * 2) + 1;
-                int currentCol = firstColIndex - rowsToMark;
-                int currentRow = (firstRowIndex - cellsAround) + rowsToMark;
+                int currentCol = position.Col - rowsToMark;
+                int currentRow = (position.Row - cellsAround) + rowsToMark;
 
                 this.MarkDisabledCellsInRow(cellsToMark, currentCol, currentRow, boardMask);
             }
 
-            for (int rowsToMark = (cellsAround - 1), currentRow = (firstRowIndex + 1); rowsToMark >= 0; rowsToMark--)
+            //// Second loop marks the lower part of the rhombus of unavailable cells
+            for (int rowsToMark = (cellsAround - 1), currentRow = (position.Row + 1); rowsToMark >= 0; rowsToMark--)
             {
                 int cellsToMark = (rowsToMark * cellsAround) + 1;
-                int currentCol = firstColIndex - rowsToMark;
+                int currentCol = position.Col - rowsToMark;
 
                 MarkDisabledCellsInRow(cellsToMark, currentCol, currentRow, boardMask);
 

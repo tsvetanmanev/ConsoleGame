@@ -10,5 +10,8 @@
 
         public const int StandardGameTotalBoardRows = 8;
         public const int StandardGameTotalBoardCols = 8;
+
+        public const int DisabledCellsAroundFruit = 1;
+        public const int DisabledCellsAroundWarrior = 2;
     }
 }

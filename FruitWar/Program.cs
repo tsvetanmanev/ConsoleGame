@@ -10,10 +10,10 @@
         public static void Main(string[] args)
         {
             var renderer = new ConsoleRenderer();
-
             var inputProvider = new ConsoleInputProvider();
+            var board = new FruitWar.Board.Board();
 
-            var fruitWarEngine = new StandardFruitWarEngine(renderer, inputProvider);
+            var fruitWarEngine = new StandardFruitWarEngine(renderer, inputProvider, board);
 
             fruitWarEngine.Initialize();
 
